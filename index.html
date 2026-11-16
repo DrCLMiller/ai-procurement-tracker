@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Procurement Rules Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a working register. Summary strip, filter rail, then dense rule cards that open into clause obligations. */
+:root{
+  --ink:#17222c; --muted:#5a6872; --paper:#f4f5f2; --card:#ffffff; --line:#d9ddd8;
+  --accent:#0d6466; --accent-soft:#e1efee;
+  --ok:#2f7a3e; --ok-bg:#e5f2e7; --warn:#9a6a00; --warn-bg:#fbf0d6; --prop:#6a4a9c; --prop-bg:#eee8f7; --soft:#4f6475; --soft-bg:#e8edf1;
+  --agent:#a2441b; --agent-bg:#f8e7de;
+  --display:"Newsreader", Georgia, "Times New Roman", serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#e6ebee; --muted:#9aa7b0; --paper:#11181e; --card:#18222a; --line:#2b3741;
+    --accent:#5fc2c0; --accent-soft:#16312f;
+    --ok:#7cc98a; --ok-bg:#1a2d1e; --warn:#e6b84f; --warn-bg:#33290f; --prop:#b9a0e6; --prop-bg:#2a2238; --soft:#a6b9c8; --soft-bg:#1f2b35;
+    --agent:#f09a6f; --agent-bg:#3a2218;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e6ebee; --muted:#9aa7b0; --paper:#11181e; --card:#18222a; --line:#2b3741;
+  --accent:#5fc2c0; --accent-soft:#16312f;
+  --ok:#7cc98a; --ok-bg:#1a2d1e; --warn:#e6b84f; --warn-bg:#33290f; --prop:#b9a0e6; --prop-bg:#2a2238; --soft:#a6b9c8; --soft-bg:#1f2b35;
+  --agent:#f09a6f; --agent-bg:#3a2218;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+a{color:var(--accent)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--line);background:var(--card)}
+.top .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between;padding-top:22px;padding-bottom:16px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.6vw,36px);line-height:1.1;margin:4px 0 6px;text-wrap:balance}
+.lede{color:var(--muted);max-width:68ch;margin:0}
+.verified{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right;max-width:260px}
+.reportbtn{display:inline-block;font-family:var(--body);font-size:13px;font-weight:500;padding:6px 12px;border-radius:6px;background:var(--accent);color:var(--card);text-decoration:none}
+nav.tabs{display:flex;gap:4px;margin-top:4px}
+nav.tabs a{padding:8px 14px;border:1px solid var(--line);border-bottom:none;border-radius:6px 6px 0 0;text-decoration:none;color:var(--muted);background:var(--paper);font-weight:500}
+nav.tabs a[aria-current="page"]{background:var(--card);color:var(--ink);border-color:var(--line);position:relative;top:1px}
+.tabbar{background:var(--card)}
+.tabbar .wrap{display:flex;align-items:flex-end}
+main{padding:24px 20px 48px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.stat b{display:block;font-family:var(--display);font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13px}
+.controls{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;display:grid;gap:12px;margin-bottom:16px}
+.searchrow{display:flex;gap:10px;flex-wrap:wrap}
+.searchrow input{flex:1 1 280px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+.searchrow select{padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chips .lbl{font-size:12px;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;margin-right:4px;min-width:92px}
+.chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:4px 11px;font-size:13px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--card)}
+.chip.agentic[aria-pressed="true"]{background:var(--agent);border-color:var(--agent)}
+.resultline{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:var(--muted);font-size:13px;margin:4px 2px 10px}
+.linkbtn{background:none;border:none;color:var(--accent);cursor:pointer;padding:0;text-decoration:underline}
+.list{display:grid;gap:10px}
+.rule{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--soft);border-radius:8px}
+.rule.s-force{border-left-color:var(--ok)} .rule.s-phased{border-left-color:var(--warn)} .rule.s-proposed{border-left-color:var(--prop)} .rule.s-guidance{border-left-color:var(--soft)}
+.rule summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:6px 16px}
+.rule summary::-webkit-details-marker{display:none}
+.rule h3{margin:0;font-size:16px;font-weight:600;line-height:1.35}
+.meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px}
+.pill{border-radius:999px;padding:2px 9px;font-size:12px;font-weight:500;white-space:nowrap}
+.p-force{background:var(--ok-bg);color:var(--ok)} .p-phased{background:var(--warn-bg);color:var(--warn)} .p-proposed{background:var(--prop-bg);color:var(--prop)} .p-guidance{background:var(--soft-bg);color:var(--soft)}
+.p-agent{background:var(--agent-bg);color:var(--agent)}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:1px 6px}
+.short{grid-column:1 / -1;color:var(--muted);margin:0;font-size:14px}
+.next{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
+.next b{color:var(--ink);font-weight:500}
+.body{padding:0 16px 16px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:18px;border-top:1px dashed var(--line);padding-top:14px}
+.body h4{margin:0 0 6px;font-size:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:500}
+.body p{margin:0 0 10px;max-width:70ch}
+.body ul{margin:0 0 10px;padding-left:18px}
+.body li{margin-bottom:4px}
+.dates{list-style:none;padding:0!important}
+.dates li{display:grid;grid-template-columns:96px 1fr;gap:8px;font-size:14px}
+.dates time{font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums;padding-top:1px}
+.dates .past time{color:var(--muted)}
+.clink{display:inline-block;margin:0 6px 6px 0;padding:3px 9px;border-radius:5px;background:var(--accent-soft);color:var(--accent);text-decoration:none;font-size:13px}
+.clink.ag{background:var(--agent-bg);color:var(--agent)}
+.sources a{font-size:13px;word-break:break-word}
+.clause{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;gap:10px;scroll-margin-top:16px}
+.clause:target{outline:2px solid var(--accent)}
+.clause h3{margin:0;font-family:var(--display);font-size:21px;font-weight:600}
+.clause .purpose{margin:0;color:var(--muted);max-width:75ch}
+.cgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.starter{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:12px;font-family:var(--mono);font-size:12.5px;line-height:1.55;white-space:pre-wrap}
+.copy{justify-self:start;border:1px solid var(--line);background:var(--paper);border-radius:6px;padding:5px 10px;cursor:pointer;font-size:13px}
+.drivers a{display:inline-block;margin:0 6px 6px 0;font-size:13px;padding:2px 8px;border:1px solid var(--line);border-radius:5px;text-decoration:none;color:var(--ink)}
+.timeline{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.trow{display:grid;grid-template-columns:120px 150px 1fr;gap:12px;padding:10px 16px;border-top:1px solid var(--line);align-items:baseline}
+.trow:first-child{border-top:none}
+.trow time{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+.trow.past{color:var(--muted)}
+.trow .j{font-size:12px;color:var(--muted)}
+.trow a{color:inherit}
+.tsec{padding:10px 16px;font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--paper);color:var(--accent);border-top:1px solid var(--line)}
+.tsec:first-child{border-top:none}
+.empty{padding:30px;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:8px}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px;padding:18px 0 30px}
+footer p{max-width:90ch;margin:0 0 6px}
+[hidden]{display:none!important}
+@media (max-width:760px){
+  .body,.cgrid{grid-template-columns:1fr}
+  .rule summary{grid-template-columns:1fr}
+  .next{text-align:left}
+  .trow{grid-template-columns:96px 1fr}
+  .trow .j{grid-column:2}
+  .verified{text-align:left}
+  .chips .lbl{min-width:100%}
+}
+@media (prefers-reduced-motion:no-preference){ .chip,.clink{transition:background .15s,color .15s} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">AI Procurement Lab · Research tool</div>
+      <h1>AI Procurement Rules &amp; Clause Tracker</h1>
+      <p class="lede">The laws, policies, standards and guidance that shape how organizations buy AI, including the new rules for agentic AI, mapped to the contract clauses each one implies.</p>
+    </div>
+    <div class="verified">Last verified against sources<br><b id="verifiedDate">…</b><br><span id="cadence"></span><br><a id="historyLink" href="#" hidden target="_blank" rel="noopener">Change history</a>
+      <div style="margin-top:8px"><a id="reportBtn" class="reportbtn" href="#" hidden target="_blank" rel="noopener">Report a change</a></div></div>
+  </div>
+</header>
+<div class="tabbar" style="border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <nav class="tabs" aria-label="Views">
+      <a href="#rules" data-view="rules">Rules</a>
+      <a href="#clauses" data-view="clauses">Clause library</a>
+      <a href="#timeline" data-view="timeline">Key dates</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap">
+  <section class="stats" id="stats" aria-label="Summary"></section>
+
+  <!-- RULES VIEW -->
+  <section id="view-rules">
+    <div class="controls">
+      <div class="searchrow">
+        <label for="q" class="eyebrow" style="position:absolute;left:-9999px">Search</label>
+        <input id="q" type="search" placeholder="Search rules, obligations or clause topics (e.g. training data, kill switch, bias audit)">
+        <label for="statusSel" style="position:absolute;left:-9999px">Status</label>
+        <select id="statusSel">
+          <option value="">Any status</option>
+          <option value="force">In force</option>
+          <option value="phased">Phased in / dates ahead</option>
+          <option value="proposed">Proposed or pending</option>
+          <option value="guidance">Guidance or voluntary standard</option>
+        </select>
+        <label for="buyerSel" style="position:absolute;left:-9999px">Buyer</label>
+        <select id="buyerSel">
+          <option value="">Public and private buyers</option>
+          <option value="public">Relevant to public-sector buyers</option>
+          <option value="private">Relevant to private-sector buyers</option>
+        </select>
+      </div>
+      <div class="chips" id="jurChips"><span class="lbl">Jurisdiction</span></div>
+      <div class="chips" id="typeChips"><span class="lbl">Instrument</span></div>
+      <div class="chips"><span class="lbl">Focus</span><button class="chip agentic" id="agenticChip" aria-pressed="false" type="button">Agentic AI relevant</button></div>
+    </div>
+    <div class="resultline"><span id="count"></span><span><button class="linkbtn" id="expandAll" type="button">Expand all</button> · <button class="linkbtn" id="reset" type="button">Clear filters</button></span></div>
+    <div class="list" id="ruleList"></div>
+  </section>
+
+  <!-- CLAUSE VIEW -->
+  <section id="view-clauses" hidden>
+    <div class="controls">
+      <div class="searchrow">
+        <label for="cq" style="position:absolute;left:-9999px">Search clauses</label>
+        <input id="cq" type="search" placeholder="Search the clause library">
+      </div>
+      <div class="chips"><span class="lbl">Focus</span><button class="chip agentic" id="cAgentic" aria-pressed="false" type="button">Agentic-specific clauses</button></div>
+    </div>
+    <p class="resultline" style="margin-top:0">Each clause lists the rules that call for it. Starter language is a drafting aid to adapt with counsel, not model text from any regulator.</p>
+    <div class="list" id="clauseList"></div>
+  </section>
+
+  <!-- TIMELINE VIEW -->
+  <section id="view-timeline" hidden>
+    <p class="resultline" style="margin-top:0">Effective dates, compliance deadlines and sunsets across all tracked rules, soonest first. Past dates are listed below for reference.</p>
+    <div class="timeline" id="timelineList"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>How to use this.</b> This is a research and planning aid for procurement teams. It is not legal advice. Dates and statuses change often, especially proposed rules and state laws under federal challenge, so check the linked sources before relying on a date. Updates are proposed by an automated weekly review and published only after an editor approves them. See something out of date? Use <b>Report a change</b>.</p>
+    <p>Status categories: <b>In force</b> = binding and currently applies. <b>Phased</b> = enacted, with obligations still to start. <b>Proposed or pending</b> = draft, rulemaking or framework not yet implemented. <b>Guidance</b> = non-binding guidance, model clauses or voluntary standards.</p>
+  </div>
+</footer>
+
+<script>
+const TODAY = new Date();
+
+let CLAUSES = [], RULES = [], META = {};
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const STATUS = {force:"In force", phased:"Phased in", proposed:"Proposed / pending", guidance:"Guidance / voluntary"};
+let clauseById = {};
+const full = d => d.length === 7 ? d + "-28" : d;
+const fmt = d => new Date(full(d) + "T12:00:00").toLocaleDateString("en-GB", d.length === 7 ? {month:"short", year:"numeric"} : {day:"numeric", month:"short", year:"numeric"});
+const isPast = d => new Date(full(d) + "T12:00:00") < TODAY;
+function nextDate(r){ return r.dates.filter(x => !isPast(x.d)).sort((a,b)=>a.d.localeCompare(b.d))[0]; }
+
+const JURS = ["US Federal","US State","European Union","United Kingdom","Canada","Asia-Pacific","International standards"];
+let TYPES = [];
+const state = {q:"", jur:new Set(), type:new Set(), agentic:false, status:"", buyer:""};
+try { const saved = JSON.parse(localStorage.getItem("aiptracker") || "null"); if (saved){ state.agentic = !!saved.agentic; } } catch(e){}
+
+function chipRow(el, items, set){
+  items.forEach(v => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = v; b.setAttribute("aria-pressed","false");
+    b.addEventListener("click", () => { set.has(v) ? set.delete(v) : set.add(v); b.setAttribute("aria-pressed", set.has(v)); renderRules(); });
+    el.appendChild(b);
+  });
+}
+
+function stats(){
+  const inForce = RULES.filter(r => r.status === "force").length;
+  const horizon = new Date(TODAY); horizon.setFullYear(horizon.getFullYear()+1);
+  const upcoming = RULES.flatMap(r => r.dates).filter(d => { const t = new Date(full(d.d)+"T12:00:00"); return t >= TODAY && t <= horizon; }).length;
+  const agentic = RULES.filter(r => r.agentic).length;
+  $("#stats").innerHTML = [
+    [RULES.length, "rules and instruments tracked"],
+    [inForce, "binding and in force now"],
+    [upcoming, "effective dates in the next 12 months"],
+    [agentic, "relevant to agentic AI"],
+    [CLAUSES.length, "clause types in the library"]
+  ].map(([n,l]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join("");
+}
+
+function matches(r){
+  if (state.jur.size && !state.jur.has(r.jur)) return false;
+  if (state.type.size && !state.type.has(r.type)) return false;
+  if (state.agentic && !r.agentic) return false;
+  if (state.status && r.status !== state.status) return false;
+  if (state.buyer && !r.buyers.includes(state.buyer)) return false;
+  if (state.q){
+    const hay = [r.name, r.short, r.summary, r.applies, r.jur, r.type, ...r.implications, ...r.clauses.map(c => clauseById[c].name)].join(" ").toLowerCase();
+    return state.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+  }
+  return true;
+}
+
+function ruleCard(r){
+  const nd = nextDate(r);
+  const last = r.dates.slice().sort((a,b)=>b.d.localeCompare(a.d))[0];
+  const next = nd ? `<div class="next">Next: <b>${fmt(nd.d)}</b><br>${esc(nd.t)}</div>` : (last ? `<div class="next">Since <b>${fmt(last.d)}</b><br>${esc(last.t)}</div>` : `<div class="next">No dated milestones</div>`);
+  return `<details class="rule s-${r.status}" id="rule-${r.id}">
+    <summary>
+      <div>
+        <h3>${esc(r.name)}</h3>
+        <div class="meta" style="margin-top:6px">
+          <span class="pill p-${r.status}">${STATUS[r.status]}</span>
+          ${r.agentic ? '<span class="pill p-agent">Agentic AI</span>' : ""}
+          <span class="tag">${esc(r.jur)}</span><span class="tag">${esc(r.type)}</span>
+        </div>
+      </div>
+      ${next}
+      <p class="short">${esc(r.short)}</p>
+    </summary>
+    <div class="body">
+      <div>
+        <h4>Who it applies to</h4><p>${esc(r.applies)}</p>
+        <h4>What it does</h4><p>${esc(r.summary)}</p>
+        <h4>What it means for procurement</h4><ul>${r.implications.map(i => `<li>${esc(i)}</li>`).join("")}</ul>
+      </div>
+      <div>
+        <h4>Clauses it implies</h4>
+        <div>${r.clauses.map(id => `<a class="clink${clauseById[id].agentic ? " ag" : ""}" href="#clause-${id}">${esc(clauseById[id].name)}</a>`).join("")}</div>
+        <h4 style="margin-top:8px">Key dates</h4>
+        <ul class="dates">${r.dates.slice().sort((a,b)=>a.d.localeCompare(b.d)).map(d => `<li class="${isPast(d.d) ? "past" : ""}"><time datetime="${d.d}">${fmt(d.d)}</time><span>${esc(d.t)}</span></li>`).join("")}</ul>
+        <h4>Sources</h4>
+        <ul class="sources">${r.sources.map(s => `<li><a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t)}</a></li>`).join("")}</ul>
+      </div>
+    </div>
+  </details>`;
+}
+
+function renderRules(){
+  const list = RULES.filter(matches);
+  $("#count").textContent = `Showing ${list.length} of ${RULES.length}`;
+  $("#ruleList").innerHTML = list.length ? list.map(ruleCard).join("") : `<div class="empty">No rules match these filters. Try clearing a filter or searching a broader term.</div>`;
+  $("#agenticChip").setAttribute("aria-pressed", state.agentic);
+  try { localStorage.setItem("aiptracker", JSON.stringify({agentic: state.agentic})); } catch(e){}
+}
+
+const cstate = {q:"", agentic:false};
+function renderClauses(){
+  const drivers = id => RULES.filter(r => r.clauses.includes(id));
+  const list = CLAUSES.filter(c => {
+    if (cstate.agentic && !c.agentic) return false;
+    if (!cstate.q) return true;
+    const hay = [c.name, c.purpose, c.starter, ...c.require].join(" ").toLowerCase();
+    return cstate.q.toLowerCase().split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+  }).sort((a,b) => drivers(b.id).length - drivers(a.id).length);
+  $("#clauseList").innerHTML = list.length ? list.map(c => {
+    const d = drivers(c.id);
+    return `<article class="clause" id="clause-${c.id}">
+      <div class="meta">${c.agentic ? '<span class="pill p-agent">Agentic AI</span>' : ""}<span class="tag">Called for by ${d.length} rule${d.length === 1 ? "" : "s"}</span></div>
+      <h3>${esc(c.name)}</h3>
+      <p class="purpose">${esc(c.purpose)}</p>
+      <div class="cgrid">
+        <div><h4 class="eyebrow" style="margin:0 0 6px">The clause should</h4><ul style="margin:0;padding-left:18px">${c.require.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+          <h4 class="eyebrow" style="margin:12px 0 6px">Driven by</h4><div class="drivers">${d.map(r => `<a href="#rule-${r.id}" data-rule="${r.id}">${esc(r.name.split(":")[0])}</a>`).join("")}</div></div>
+        <div style="display:grid;gap:8px;align-content:start"><h4 class="eyebrow" style="margin:0">Starter language</h4><div class="starter" id="st-${c.id}">${esc(c.starter)}</div><button class="copy" type="button" data-copy="${c.id}">Copy starter language</button></div>
+      </div>
+    </article>`;
+  }).join("") : `<div class="empty">No clauses match.</div>`;
+}
+
+function renderTimeline(){
+  const all = RULES.flatMap(r => r.dates.map(d => ({...d, r}))).sort((a,b) => a.d.localeCompare(b.d));
+  const up = all.filter(x => !isPast(x.d)), past = all.filter(x => isPast(x.d)).reverse();
+  const row = x => `<div class="trow ${isPast(x.d) ? "past" : ""}"><time datetime="${x.d}">${fmt(x.d)}</time><span class="j">${esc(x.r.jur)}</span><span><a href="#rule-${x.r.id}" data-rule="${x.r.id}">${esc(x.r.name.split(":")[0])}</a>: ${esc(x.t)}</span></div>`;
+  $("#timelineList").innerHTML = `<div class="tsec">Upcoming</div>${up.map(row).join("")}<div class="tsec">Already passed</div>${past.map(row).join("")}`;
+}
+
+/* ---------- routing ---------- */
+function show(view){
+  ["rules","clauses","timeline"].forEach(v => { $("#view-"+v).hidden = v !== view; });
+  document.querySelectorAll("nav.tabs a").forEach(a => a.setAttribute("aria-current", a.dataset.view === view ? "page" : "false"));
+}
+function route(){
+  const h = location.hash.slice(1);
+  if (h.startsWith("clause-")){ show("clauses"); const el = document.getElementById(h); if (el) el.scrollIntoView({block:"start"}); return; }
+  if (h.startsWith("rule-")){
+    show("rules");
+    let el = document.getElementById(h);
+    if (!el){ state.q=""; state.jur.clear(); state.type.clear(); state.agentic=false; state.status=""; state.buyer=""; syncControls(); renderRules(); el = document.getElementById(h); }
+    if (el){ el.open = true; el.scrollIntoView({block:"start"}); }
+    return;
+  }
+  show(["rules","clauses","timeline"].includes(h) ? h : "rules");
+}
+function syncControls(){
+  $("#q").value = state.q; $("#statusSel").value = state.status; $("#buyerSel").value = state.buyer;
+  document.querySelectorAll("#jurChips .chip, #typeChips .chip").forEach(b => b.setAttribute("aria-pressed","false"));
+}
+
+/* ---------- wire up ---------- */
+chipRow($("#jurChips"), JURS, state.jur);
+
+$("#q").addEventListener("input", e => { state.q = e.target.value.trim(); renderRules(); });
+$("#statusSel").addEventListener("change", e => { state.status = e.target.value; renderRules(); });
+$("#buyerSel").addEventListener("change", e => { state.buyer = e.target.value; renderRules(); });
+$("#agenticChip").addEventListener("click", () => { state.agentic = !state.agentic; renderRules(); });
+$("#reset").addEventListener("click", () => { state.q=""; state.jur.clear(); state.type.clear(); state.agentic=false; state.status=""; state.buyer=""; syncControls(); renderRules(); });
+let expanded = false;
+$("#expandAll").addEventListener("click", e => { expanded = !expanded; document.querySelectorAll("#ruleList details").forEach(d => d.open = expanded); e.target.textContent = expanded ? "Collapse all" : "Expand all"; });
+$("#cq").addEventListener("input", e => { cstate.q = e.target.value.trim(); renderClauses(); });
+$("#cAgentic").addEventListener("click", e => { cstate.agentic = !cstate.agentic; e.target.setAttribute("aria-pressed", cstate.agentic); renderClauses(); });
+$("#clauseList").addEventListener("click", async e => {
+  const id = e.target.dataset && e.target.dataset.copy; if (!id) return;
+  try { await navigator.clipboard.writeText(clauseById[id].starter); e.target.textContent = "Copied"; }
+  catch(err){ const r = document.createRange(); r.selectNodeContents(document.getElementById("st-"+id)); const s = getSelection(); s.removeAllRanges(); s.addRange(r); e.target.textContent = "Text selected: press Ctrl/Cmd+C"; }
+  setTimeout(() => { e.target.textContent = "Copy starter language"; }, 2200);
+});
+window.addEventListener("hashchange", route);
+
+
+async function boot(){
+  try {
+    const res = await fetch("data/tracker.json", {cache:"no-store"});
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const data = await res.json();
+    CLAUSES = data.clauses; RULES = data.rules; META = data.meta || {};
+  } catch(err){
+    $("#ruleList").innerHTML = `<div class="empty">The tracker data could not be loaded (${esc(err.message)}). Refresh the page; if it persists, the data file may be mid-update.</div>`;
+    return;
+  }
+  clauseById = Object.fromEntries(CLAUSES.map(c => [c.id, c]));
+  TYPES = [...new Set(RULES.map(r => r.type))];
+  chipRow($("#typeChips"), TYPES, state.type);
+  if (META.lastVerified) $("#verifiedDate").textContent = fmt(META.lastVerified);
+  if (META.checkCadence) $("#cadence").textContent = `Checked ${META.checkCadence} by an automated review, approved by an editor.`;
+  if (META.reportUrl){ const a = $("#reportBtn"); a.href = META.reportUrl; a.hidden = false; }
+  if (META.historyUrl){ const h = $("#historyLink"); h.href = META.historyUrl; h.hidden = false; }
+  stats(); renderRules(); renderClauses(); renderTimeline(); route();
+}
+boot();
+</script>
+</body>
+</html>

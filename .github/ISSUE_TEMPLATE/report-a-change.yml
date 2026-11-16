@@ -1,0 +1,45 @@
+name: Report a change
+description: Tell us a rule, date or status in the tracker is out of date, or suggest a new rule to add.
+title: "[Change] "
+labels: ["reported-change"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep the tracker current. Every report is checked against the source before anything changes.
+  - type: input
+    id: rule
+    attributes:
+      label: Which rule or document?
+      description: Name it as it appears in the tracker, or name a new rule you think should be added.
+      placeholder: e.g. Colorado SB 26-189
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of change?
+      options:
+        - A date moved
+        - Status changed (e.g. proposed rule finalized, law enjoined or repealed)
+        - Summary or obligations are inaccurate
+        - New rule or guidance to add
+        - A source link is broken
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: What changed?
+      placeholder: Describe what is now different.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source link
+      description: An official source (regulator, legislature, agency) is best.
+      placeholder: https://
+    validations:
+      required: true

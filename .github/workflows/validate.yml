@@ -1,0 +1,23 @@
+name: Validate tracker data
+
+on:
+  pull_request:
+    paths: ["data/**", "scripts/**", "index.html"]
+  push:
+    branches: [main]
+    paths: ["data/**", "scripts/**", "index.html"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check tracker.json structure, dates, clause links and sources
+        run: node scripts/validate.mjs

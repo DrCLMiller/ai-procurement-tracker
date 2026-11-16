@@ -1,0 +1,1814 @@
+{
+  "meta": {
+    "title": "AI Procurement Rules & Clause Tracker",
+    "lastVerified": "2026-11-15",
+    "checkCadence": "weekly",
+    "reportUrl": "https://github.com/DrCLMiller/ai-procurement-tracker/issues/new?template=report-a-change.yml",
+    "historyUrl": "https://github.com/DrCLMiller/ai-procurement-tracker/blob/main/CHANGELOG.md",
+    "schemaVersion": 1
+  },
+  "clauses": [
+    {
+      "id": "data-use",
+      "name": "Customer data use and model-training limits",
+      "agentic": false,
+      "purpose": "Controls what the vendor, its model providers and subprocessors may do with prompts, files, outputs and other buyer data.",
+      "require": [
+        "No training, fine-tuning or benchmarking on buyer data without written opt-in",
+        "Narrow, enumerated permitted uses (e.g. de-identified security telemetry)",
+        "Need-to-know, time-bound personnel access, with access logged",
+        "Deletion or return of data at end of term, with certification"
+      ],
+      "starter": "Supplier shall not use Customer Data, prompts, or Outputs to train, retrain, fine-tune, evaluate, or improve any model, and shall ensure its model providers and subprocessors are bound by the same restriction, except as Customer expressly authorizes in writing. Supplier personnel may access Customer Data only for a documented operational need, for a limited time, and every access shall be logged and reported to Customer on request."
+    },
+    {
+      "id": "ip-outputs",
+      "name": "Ownership of outputs, custom work and data rights",
+      "agentic": false,
+      "purpose": "Settles who owns outputs, fine-tuned models, prompts and custom developments, and what licence each side keeps.",
+      "require": [
+        "Buyer owns or has unrestricted rights to outputs and buyer-funded custom work",
+        "Vendor keeps its pre-existing IP, with a clear background-IP carve-out",
+        "Licence rights in fine-tuned weights, embeddings and prompt libraries built for the buyer",
+        "Third-party IP infringement indemnity covering outputs"
+      ],
+      "starter": "As between the parties, Customer owns all Outputs and all Custom Developments created for Customer under this Agreement, including fine-tuned weights, adapters, embeddings and prompt libraries. Supplier retains ownership of its Background IP and grants Customer a perpetual, royalty-free licence to use Background IP to the extent necessary to use the Deliverables."
+    },
+    {
+      "id": "docs",
+      "name": "Model and system documentation, instructions for use",
+      "agentic": false,
+      "purpose": "Gets the buyer the documentation it needs to assess, deploy, explain and govern the system.",
+      "require": [
+        "Model or system cards: training approach, known limitations, evaluation results",
+        "Acceptable-use policy and instructions for use",
+        "Documentation that keeps pace with each new version",
+        "Information the buyer needs for its own regulatory filings and inventories"
+      ],
+      "starter": "Supplier shall deliver, before go-live and with each Material Change, current system documentation including: intended purpose and prohibited uses; model and system cards describing training approach, known limitations and evaluation results; instructions for use sufficient for Customer to operate and oversee the system; and any information Customer reasonably requires to meet its legal, inventory or reporting obligations."
+    },
+    {
+      "id": "change-notice",
+      "name": "Model change, update and deprecation notice",
+      "agentic": false,
+      "purpose": "Stops silent model swaps and gives the buyer time to re-test when the underlying model, system prompt, filters or hosting change.",
+      "require": [
+        "Definition of Material Change (base model, system instructions, safety filters, hosting region, subprocessors)",
+        "Advance written notice and a right to re-test before changes take effect",
+        "Notice of third-party model deprecation within a fixed window",
+        "Right to stay on a pinned version or terminate without penalty"
+      ],
+      "starter": "Supplier shall give Customer at least [30] days' written notice of any Material Change, meaning any change to the underlying model or version, system-level instructions, output filters, evaluation methods, hosting location, or subprocessors. Where a third-party model provider deprecates a model, Supplier shall notify Customer within five business days of receiving notice. Customer may test the changed system before it applies to Customer's use and may terminate without penalty if the change materially reduces performance or compliance."
+    },
+    {
+      "id": "incident",
+      "name": "Incident, violation and serious-event notification",
+      "agentic": false,
+      "purpose": "Sets the clock and the content for telling the buyer about AI failures, security events and contract violations.",
+      "require": [
+        "Short notice windows (e.g. 72 hours for material violations)",
+        "Covers AI-specific events: harmful outputs, bias findings, prompt injection, unauthorized agent actions",
+        "Root-cause report and corrective-action plan",
+        "Cooperation with the buyer's own regulatory reporting"
+      ],
+      "starter": "Supplier shall notify Customer within [72] hours after becoming aware of any Security Incident, any material violation of this Agreement, or any AI Incident, meaning an output or action of the AI system that causes or is reasonably likely to cause harm, unlawful discrimination, unauthorized disclosure, or an action outside its authorized scope. Supplier shall provide a root-cause analysis and corrective-action plan within [10] business days and cooperate with Customer's reporting to regulators."
+    },
+    {
+      "id": "testing",
+      "name": "Testing, evaluation and bias-audit support",
+      "agentic": false,
+      "purpose": "Lets the buyer verify performance, robustness and fairness before and after deployment.",
+      "require": [
+        "Pre-deployment testing in the buyer's context, with access to a test environment",
+        "Bias and performance evaluation results, including methodology",
+        "Support for independent audits (e.g. annual bias audits for hiring tools)",
+        "Ongoing performance monitoring and drift reporting"
+      ],
+      "starter": "Before acceptance and at least annually thereafter, Supplier shall support Customer's testing of the system in Customer's intended use, including by providing a test environment, evaluation methodology and results for accuracy, robustness and bias across relevant groups, and the data reasonably needed for an independent audit. Supplier shall report material performance degradation within [15] days of detection."
+    },
+    {
+      "id": "oversight",
+      "name": "Human oversight and approval checkpoints",
+      "agentic": false,
+      "purpose": "Makes sure people can understand, intervene in, and override the system, especially for high-impact decisions and actions.",
+      "require": [
+        "Design features that let trained staff monitor, interpret and override outputs",
+        "Human approval before high-impact decisions or irreversible actions",
+        "Ability to suspend the system without vendor permission",
+        "Vendor-provided training for oversight personnel"
+      ],
+      "starter": "Supplier shall provide functionality enabling Customer's designated personnel to monitor the system's operation, review the basis for outputs, override or disregard any output, and pause or stop the system at any time. For any decision or action Customer designates as high-impact, the system shall require recorded human approval before execution."
+    },
+    {
+      "id": "logging",
+      "name": "Logging, traceability and record retention",
+      "agentic": false,
+      "purpose": "Creates the evidence trail needed for audits, incident review, contestability and regulatory duties.",
+      "require": [
+        "Automatic event logs of inputs, outputs, model version and actions taken",
+        "Logs of intermediary processing and any human-reviewer access",
+        "Retention period aligned with legal duties; buyer access on request",
+        "Tamper-evident storage and export in a usable format"
+      ],
+      "starter": "The system shall automatically record, for each interaction or action: timestamp, user or agent identity, model and version, inputs, outputs, tools invoked, and any human-reviewer access to Customer Data. Supplier shall retain such logs for [the longer of six months or the period required by applicable law], protect them against alteration, and provide them to Customer in a machine-readable format within [5] business days of request."
+    },
+    {
+      "id": "audit",
+      "name": "Audit, inspection and information rights",
+      "agentic": false,
+      "purpose": "Gives the buyer (and its regulators) the right to check compliance.",
+      "require": [
+        "Right to audit or receive third-party assurance reports",
+        "Regulator access where sector law requires it",
+        "Completion of buyer AI governance questionnaires",
+        "Remediation of audit findings on a timetable"
+      ],
+      "starter": "Customer, its auditors and any regulator with jurisdiction over Customer may audit Supplier's compliance with this Agreement on reasonable notice. Supplier shall complete Customer's AI governance questionnaire annually and promptly on any Material Change, and shall remediate audit findings within agreed timelines."
+    },
+    {
+      "id": "exit",
+      "name": "Portability, exit and anti-lock-in",
+      "agentic": false,
+      "purpose": "Protects the buyer's ability to switch vendors or bring the capability in-house.",
+      "require": [
+        "Export of data, outputs, prompts, configurations and fine-tuned artifacts in open formats",
+        "Transition assistance and a defined exit period",
+        "Limits on switching or egress charges",
+        "Documented exit plan for critical services"
+      ],
+      "starter": "On expiry or termination for any reason, Supplier shall, at no additional charge beyond the agreed rates, provide Customer with a complete export of Customer Data, Outputs, prompts, configurations and Custom Developments in a documented, non-proprietary format, and shall provide transition assistance for up to [90] days so Customer can migrate to another provider."
+    },
+    {
+      "id": "continuity",
+      "name": "Operational continuity (no unilateral vendor disablement)",
+      "agentic": false,
+      "purpose": "Prevents a vendor from switching off, degrading or materially changing a system the buyer depends on.",
+      "require": [
+        "No remote disablement, throttling or degradation without buyer approval",
+        "Usage-policy changes do not apply mid-term without consent",
+        "Escrow or continuity arrangements for critical systems",
+        "Termination rights if the vendor's conduct threatens continuity"
+      ],
+      "starter": "Supplier shall not, and shall ensure that no third party under its control can, prevent Customer's use of, disable, degrade, or materially modify the system as deployed for Customer without Customer's prior written approval, except as strictly necessary to address an imminent security threat, in which case Supplier shall notify Customer immediately."
+    },
+    {
+      "id": "supply-chain",
+      "name": "Subprocessors, flow-down and AI supply-chain origin",
+      "agentic": false,
+      "purpose": "Makes the AI supply chain visible: model providers, hosting, tools and data sources.",
+      "require": [
+        "Inventory of model providers, subprocessors and hosting locations",
+        "Flow-down of AI obligations to anyone handling buyer data",
+        "Disclosure of foreign development or control where policy requires it",
+        "Buyer approval or objection right for new subprocessors"
+      ],
+      "starter": "Supplier shall maintain and provide to Customer a current list of all model providers, subprocessors, and hosting locations used to deliver the system, and shall flow down obligations no less protective than this Agreement to each of them. Supplier shall give [30] days' notice of any new subprocessor, during which Customer may object."
+    },
+    {
+      "id": "security",
+      "name": "AI-specific security requirements",
+      "agentic": false,
+      "purpose": "Extends standard cybersecurity terms to AI-specific threats and assets.",
+      "require": [
+        "Protection of model weights, training data and system prompts",
+        "Defenses against prompt injection, data poisoning and jailbreaks",
+        "Red-teaming before release and after material changes",
+        "Alignment with recognized frameworks (NIST, ISO/IEC 42001, sector rules)"
+      ],
+      "starter": "Supplier shall implement and maintain security controls appropriate to AI systems, including protections against prompt injection, data poisoning, model extraction and jailbreaks; access controls for model weights and system instructions; and adversarial testing before release and after each Material Change. Supplier shall align these controls with [NIST SP 800-53 / ISO/IEC 27001 and 42001 / the applicable sector framework]."
+    },
+    {
+      "id": "agent-identity",
+      "name": "Agent identity, credentials and least privilege",
+      "agentic": true,
+      "purpose": "Treats each AI agent as a governed identity with only the access its task needs.",
+      "require": [
+        "A unique, verifiable identity for each agent instance",
+        "Least-privilege, scoped and short-lived credentials",
+        "No shared or human credentials used by agents",
+        "Inventory of agents, their permissions and connected tools"
+      ],
+      "starter": "Each AI agent deployed for Customer shall operate under a unique, verifiable identity registered in Customer's identity system. Agents shall be granted only the minimum permissions needed for their assigned tasks, using scoped, time-limited credentials, and shall never use credentials issued to a human user. Supplier shall maintain and share an inventory of agents, their permissions, and every tool, API or data source each can reach."
+    },
+    {
+      "id": "agent-limits",
+      "name": "Agent action scope, transaction authority and stop controls",
+      "agentic": true,
+      "purpose": "Defines what an agent may do on the buyer's behalf, and how the buyer stops it.",
+      "require": [
+        "Written scope of permitted actions and systems",
+        "Monetary, volume and contractual-commitment limits",
+        "Human approval before irreversible or high-impact actions",
+        "Buyer-controlled stop function and rollback",
+        "Allocation of liability for out-of-scope agent actions"
+      ],
+      "starter": "Agents may take only the actions listed in the Agent Authority Schedule. Without recorded human approval, no agent may (a) commit Customer to any payment or obligation above [$X], (b) accept, modify or terminate any contract, (c) delete data or change access rights, or (d) take any other action designated irreversible. Customer may suspend any or all agents immediately through a stop control Supplier shall provide. Supplier is responsible for losses caused by agent actions outside the authorized scope that result from Supplier's design, configuration or failure to enforce these limits."
+    },
+    {
+      "id": "disclosure",
+      "name": "End-user AI disclosure and content labeling",
+      "agentic": false,
+      "purpose": "Supports the buyer's duty to tell people they are dealing with AI and to label synthetic content.",
+      "require": [
+        "Configurable disclosure notices in user-facing interfaces",
+        "Machine-readable marking or watermarking of generated content where required",
+        "Provenance or citation signals",
+        "Plain-language explanations for affected individuals"
+      ],
+      "starter": "Supplier shall provide functionality to clearly and conspicuously disclose to end users that they are interacting with an AI system, and to mark AI-generated or manipulated content in a machine-readable, detectable format as required by applicable law. Supplier shall support Customer in providing plain-language explanations of how the system contributed to a decision affecting an individual."
+    },
+    {
+      "id": "compliance",
+      "name": "Regulatory role allocation, compliance warranty and change in law",
+      "agentic": false,
+      "purpose": "Says who is the provider, developer, deployer or operator under each law, and who carries which duty as laws change.",
+      "require": [
+        "Statement of each party's legal role (e.g. EU AI Act provider vs deployer)",
+        "Warranty of compliance with laws applicable to the vendor's role",
+        "Change-in-law mechanism that reopens terms without a full renegotiation",
+        "Cooperation duty for the buyer's compliance obligations"
+      ],
+      "starter": "The parties agree that, for purposes of [the EU AI Act / applicable state law], Supplier acts as [provider/developer] and Customer acts as [deployer]. Supplier warrants that the system complies with all laws applicable to it in that role and shall provide reasonable cooperation for Customer's obligations. If a change in law materially affects either party's obligations, the parties shall negotiate in good faith an amendment within [60] days, failing which either party may terminate the affected services without penalty."
+    },
+    {
+      "id": "remedies",
+      "name": "Material-term remedies, cure, termination and decommissioning",
+      "agentic": false,
+      "purpose": "Gives AI-governance duties real teeth and covers the cost of unwinding a non-compliant system.",
+      "require": [
+        "AI governance obligations designated as material terms",
+        "Defined cure period and corrective-action process",
+        "Termination for default after failed cure",
+        "Vendor-funded decommissioning and migration costs",
+        "Liability caps that do not swallow AI-specific harms"
+      ],
+      "starter": "Supplier's obligations under the AI Governance Schedule are material terms of this Agreement. If Supplier fails to comply and does not cure within [30] days of notice, Customer may terminate for default, and Supplier shall bear the reasonable costs of decommissioning the system and migrating Customer Data and Custom Developments to a replacement. The limitation of liability does not apply to Supplier's breach of the data-use, security, or agent-authority provisions."
+    },
+    {
+      "id": "assessment",
+      "name": "Impact-assessment and affected-person rights support",
+      "agentic": false,
+      "purpose": "Helps the buyer run impact or risk assessments and honour rights of people affected by automated decisions.",
+      "require": [
+        "Information needed for impact assessments, DPIAs and risk assessments",
+        "Support for notices, opt-outs, access, explanation and appeal requests",
+        "Records that let the buyer reconstruct how a decision was made",
+        "Prompt help with complaints and regulator inquiries"
+      ],
+      "starter": "Supplier shall provide all information Customer reasonably requires to complete any algorithmic impact assessment, data protection impact assessment, or risk assessment, and shall, within [10] business days of request, assist Customer in responding to any request by an affected individual for notice, explanation, correction, human review, opt-out or appeal concerning a decision in which the system was used."
+    },
+    {
+      "id": "neutrality",
+      "name": "Unbiased AI Principles (US federal LLM purchases)",
+      "agentic": false,
+      "purpose": "Implements the federal truth-seeking and ideological-neutrality requirements for large language models.",
+      "require": [
+        "Minimum vendor disclosures: acceptable-use policy, model/system/data cards, end-user resources, feedback mechanism",
+        "Enhanced transparency where the use calls for it (evaluations, system instructions, filters)",
+        "Channel for reporting non-compliant outputs",
+        "Material-term status, cure, and vendor-funded decommissioning"
+      ],
+      "starter": "Supplier shall design, train and configure the LLM, using reasonable efforts, to provide factual, objective responses that acknowledge uncertainty, consistent with the Unbiased AI Principles in E.O. 14319 and OMB M-26-04. Supplier shall deliver its acceptable-use policy, model, system or data cards, end-user resources, and a mechanism for reporting outputs that conflict with those principles, and shall update them on each Material Change. Compliance is a material requirement of this contract."
+    }
+  ],
+  "rules": [
+    {
+      "id": "omb-m-25-22",
+      "name": "OMB M-25-22: Driving Efficient Acquisition of AI in Government",
+      "jur": "US Federal",
+      "type": "Binding policy",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "public"
+      ],
+      "short": "The core civilian rulebook for how federal agencies buy AI; replaced M-24-18.",
+      "applies": "US federal executive agencies and the vendors that sell AI to them (contracts awarded on or after 1 Oct 2025).",
+      "summary": "Sets requirements for planning, soliciting, evaluating and contracting for AI, with heavier expectations where the use is likely to be high-impact. Focuses on protecting government data and IP, avoiding vendor lock-in, and buying American AI where practicable.",
+      "implications": [
+        "Identify likely high-impact uses early and flag them in the solicitation",
+        "Contract terms on government data, IP rights and limits on vendor training with non-public data",
+        "Portability and interoperability terms to avoid lock-in",
+        "Vendor documentation and testing support sufficient to meet M-25-21 practices"
+      ],
+      "dates": [
+        {
+          "d": "2025-04-03",
+          "t": "Memo issued; rescinds M-24-18"
+        },
+        {
+          "d": "2025-10-01",
+          "t": "Applies to AI contracts awarded on or after this date"
+        }
+      ],
+      "clauses": [
+        "data-use",
+        "ip-outputs",
+        "exit",
+        "docs",
+        "testing",
+        "compliance"
+      ],
+      "sources": [
+        {
+          "t": "OMB M-25-22 (PDF)",
+          "u": "https://www.whitehouse.gov/wp-content/uploads/2025/02/M-25-22-Driving-Efficient-Acquisition-of-Artificial-Intelligence-in-Government.pdf"
+        },
+        {
+          "t": "KPMG implementation timeline",
+          "u": "https://kpmg.com/kpmg-us/content/dam/kpmg/pdf/2025/omb-guidance.pdf"
+        }
+      ]
+    },
+    {
+      "id": "omb-m-25-21",
+      "name": "OMB M-25-21: Accelerating Federal Use of AI",
+      "jur": "US Federal",
+      "type": "Binding policy",
+      "status": "force",
+      "agentic": true,
+      "buyers": [
+        "public"
+      ],
+      "short": "Defines 'high-impact AI' and the minimum risk practices agencies must apply, including to procured and agentic systems.",
+      "applies": "US federal executive agencies, including independent regulatory agencies; flows to vendors through contracts.",
+      "summary": "High-impact AI (output is a principal basis for decisions with legal, material or significant effects on rights or safety) requires pre-deployment testing, an AI impact assessment, ongoing monitoring and human oversight. Analysts note these practices already reach many agentic deployments in the absence of agent-specific federal rules.",
+      "implications": [
+        "Vendors must support pre-deployment testing and impact assessments",
+        "Ongoing performance monitoring and the ability to suspend non-compliant systems",
+        "Human oversight and intervention capability built in"
+      ],
+      "dates": [
+        {
+          "d": "2025-04-03",
+          "t": "Memo issued; rescinds M-24-10"
+        }
+      ],
+      "clauses": [
+        "testing",
+        "oversight",
+        "assessment",
+        "logging",
+        "docs"
+      ],
+      "sources": [
+        {
+          "t": "Brookings analysis",
+          "u": "https://www.brookings.edu/articles/new-omb-memos-signal-continuity-in-federal-ai-policy/"
+        },
+        {
+          "t": "CSA note on agentic AI and M-25-21",
+          "u": "https://labs.cloudsecurityalliance.org/research/csa-research-note-nist-ai-agent-standards-federal-framework/"
+        }
+      ]
+    },
+    {
+      "id": "omb-m-26-04",
+      "name": "E.O. 14319 and OMB M-26-04: Unbiased AI Principles for LLMs",
+      "jur": "US Federal",
+      "type": "Binding policy",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "public"
+      ],
+      "short": "Every federal LLM solicitation and contract must address truth-seeking and ideological neutrality.",
+      "applies": "All LLMs procured by covered executive agencies, regardless of deployment method.",
+      "summary": "Agencies must obtain enough vendor information to judge compliance with two Unbiased AI Principles, include compliance terms in LLM contracts, and set up a channel for users to report violating outputs. Agencies had to update procurement policies by 11 Mar 2026. The memo sunsets on 11 Dec 2027.",
+      "implications": [
+        "Four minimum vendor disclosures: acceptable-use policy; model, system or data cards; end-user resources; feedback mechanism",
+        "Optional enhanced transparency on training, evaluations and enterprise controls",
+        "Compliance as a material term, with cure and vendor-funded decommissioning on termination"
+      ],
+      "dates": [
+        {
+          "d": "2025-07-23",
+          "t": "E.O. 14319 signed"
+        },
+        {
+          "d": "2025-12-11",
+          "t": "OMB M-26-04 issued"
+        },
+        {
+          "d": "2026-03-11",
+          "t": "Agency procurement policies due"
+        },
+        {
+          "d": "2027-12-11",
+          "t": "Memo's stated sunset"
+        }
+      ],
+      "clauses": [
+        "neutrality",
+        "docs",
+        "change-notice",
+        "remedies"
+      ],
+      "sources": [
+        {
+          "t": "OMB M-26-04 (PDF)",
+          "u": "https://www.whitehouse.gov/wp-content/uploads/2025/12/M-26-04-Increasing-Public-Trust-in-Artificial-Intelligence-Through-Unbiased-AI-Principles-1.pdf"
+        },
+        {
+          "t": "Crowell & Moring summary",
+          "u": "https://www.crowell.com/en/insights/client-alerts/in-bid-to-ban-woke-ai-white-house-imposes-transparency-requirements-on-contractors"
+        },
+        {
+          "t": "Disclosure and contract-term breakdown",
+          "u": "https://www.deepinspect.ai/blog/executive-order-ai-preventing-woke-ai"
+        }
+      ]
+    },
+    {
+      "id": "gsar-552-239-7001",
+      "name": "GSAR 552.239-7001: Basic Safeguarding of Data within LLM AI Systems",
+      "jur": "US Federal",
+      "type": "Contract clause",
+      "status": "force",
+      "agentic": true,
+      "buyers": [
+        "public"
+      ],
+      "short": "GSA's AI clause, now final; it reaches chatbots and agentic systems bought through GSA contracts.",
+      "applies": "GSA-administered solicitations and contracts where the government procures an LLM, chatbot, agentic system or similar tool and government data is processed. Self-deletes when LLM use is internal to the contractor.",
+      "summary": "Issued as a class deviation after two drafts (Mar and Jun 2026). Limits access to government data, requires logging, sets a 72-hour notice for material violations and five business days for third-party model deprecation, requires flow-down to subcontractors handling government data, and includes Unbiased AI language. It overrides conflicting commercial terms but does not modify FAR 52.212-4 or GSAR 552.212-4. Formal rulemaking will follow.",
+      "implications": [
+        "Expect this clause in MAS offerings from Refresh 34",
+        "Map subprocessors and model providers that touch government data",
+        "Build 72-hour violation and 5-day deprecation notices into vendor management",
+        "Commercial licence terms yield to the clause"
+      ],
+      "dates": [
+        {
+          "d": "2026-03-06",
+          "t": "First draft released"
+        },
+        {
+          "d": "2026-06-17",
+          "t": "Revised draft narrowed to LLM data safeguarding"
+        },
+        {
+          "d": "2026-10-19",
+          "t": "Final clause effective (class deviation)"
+        },
+        {
+          "d": "2026-11-06",
+          "t": "Scheduled MAS Refresh 34 incorporating the clause"
+        }
+      ],
+      "clauses": [
+        "data-use",
+        "logging",
+        "incident",
+        "change-notice",
+        "supply-chain",
+        "neutrality",
+        "ip-outputs"
+      ],
+      "sources": [
+        {
+          "t": "Wiley: final clause language",
+          "u": "https://www.wiley.law/alert-GSA-Releases-Final-Language-of-AI-Contract-Clause"
+        },
+        {
+          "t": "Winvale: what MAS contractors should know",
+          "u": "https://info.winvale.com/blog/gsas-new-ai-clause-is-here-heres-what-mas-contractors-should-know"
+        },
+        {
+          "t": "Jenner: June revised draft",
+          "u": "https://www.jenner.com/print/v2/content/102035/gsa-issues-a-revised-proposed-clause-governing-ai-data-safeguarding-requirements.pdf"
+        }
+      ]
+    },
+    {
+      "id": "nspm-11",
+      "name": "NSPM-11: AI in the National Security Enterprise",
+      "jur": "US Federal",
+      "type": "Binding policy",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "public"
+      ],
+      "short": "Requires contract terms so no vendor can disable, degrade or change AI that national security users rely on.",
+      "applies": "Defense, intelligence and other national security agencies, and AI vendors selling to them. Replaced NSM-25.",
+      "summary": "Built on four pillars: adoption, adaptation, assurance and accountability. Under assurance, agencies must ensure through contract clauses or other means that no commercial entity can prevent use of, disable, degrade or materially modify a deployed system without government knowledge and approval. Agencies may pursue termination against vendors that repeatedly act inconsistently with the policy.",
+      "implications": [
+        "No-disable / no-modify continuity clauses in national security AI contracts",
+        "Vendor usage policies cannot override lawful government use mid-contract",
+        "Termination exposure for patterns of conduct inconsistent with the memo"
+      ],
+      "dates": [
+        {
+          "d": "2026-06-05",
+          "t": "Signed"
+        }
+      ],
+      "clauses": [
+        "continuity",
+        "change-notice",
+        "remedies",
+        "supply-chain"
+      ],
+      "sources": [
+        {
+          "t": "NSPM-11 text (GovInfo)",
+          "u": "https://www.govinfo.gov/content/pkg/DCPD-202600387/pdf/DCPD-202600387.pdf"
+        },
+        {
+          "t": "CFR analysis",
+          "u": "https://www.cfr.org/articles/what-trumps-national-security-ai-memo-gets-right-and-leaves-unresolved"
+        }
+      ]
+    },
+    {
+      "id": "ndaa-fy26",
+      "name": "FY2026 NDAA §§1512, 1513, 1533: DoD AI security and assessment",
+      "jur": "US Federal",
+      "type": "Binding law",
+      "status": "proposed",
+      "agentic": false,
+      "buyers": [
+        "public"
+      ],
+      "short": "Statute directing a 'CMMC for AI' security framework that will be written into DFARS.",
+      "applies": "DoD and contractors developing, deploying, storing or hosting AI/ML for DoD. Covered AI includes source code, model weights, data and methods.",
+      "summary": "Section 1513 directs a physical and cybersecurity framework for covered AI, built as an extension of existing frameworks including CMMC, and later incorporated into DFARS. Section 1512 requires a DoD-wide AI cybersecurity and governance policy; Section 1533 creates a cross-functional team for AI model assessment. The law is enacted but the procurement requirements are still being developed.",
+      "implications": [
+        "Plan for AI-specific security controls covering weights and training data",
+        "Expect future DFARS clauses and CMMC-style assessment for AI",
+        "Model assessment and documentation expectations for DoD buys"
+      ],
+      "dates": [
+        {
+          "d": "2025-12-18",
+          "t": "FY2026 NDAA enacted (P.L. 119-60)"
+        }
+      ],
+      "clauses": [
+        "security",
+        "supply-chain",
+        "testing",
+        "docs"
+      ],
+      "sources": [
+        {
+          "t": "CRS: Cyber and AI provisions in the FY2026 NDAA",
+          "u": "https://www.everycrsreport.com/reports/IF13197.html"
+        },
+        {
+          "t": "Crowell: 'CMMC for AI'",
+          "u": "https://www.crowell.com/en/insights/client-alerts/cmmc-for-ai-defense-policy-law-imposes-ai-security-framework-and-requirements-on-contractors"
+        }
+      ]
+    },
+    {
+      "id": "far-rfo",
+      "name": "Revolutionary FAR Overhaul: Part 39 (ICT) rewrite",
+      "jur": "US Federal",
+      "type": "Regulation",
+      "status": "proposed",
+      "agentic": false,
+      "buyers": [
+        "public"
+      ],
+      "short": "Part 39 is being rebuilt for cloud and AI-era technology buys, but there is still no AI-specific FAR clause.",
+      "applies": "All federal acquisitions under the FAR.",
+      "summary": "FAR Case 2026-001 (proposed June 2026) broadens Part 39 from IT to information and communication technology. A second set of proposed rules followed in September, with comments closing 19 Oct 2026. Industry and legal commenters have urged the FAR Council to set standards for AI in procurement, including agencies' own use of AI in evaluations.",
+      "implications": [
+        "Watch for AI-specific FAR coverage as rulemaking finishes",
+        "Until then, AI terms come from OMB memos and agency clauses such as GSAR 552.239-7001"
+      ],
+      "dates": [
+        {
+          "d": "2026-06-23",
+          "t": "Proposed rules published, incl. Part 39"
+        },
+        {
+          "d": "2026-10-19",
+          "t": "Comment period on second set of rules closed"
+        }
+      ],
+      "clauses": [
+        "compliance"
+      ],
+      "sources": [
+        {
+          "t": "Sheppard Mullin on FAR Case 2026-001",
+          "u": "https://www.sheppard.com/insights/blogs/unpacking-far-case-2026-001-what-the-overhaul-means-for-sam-registration-agency-level-protests-and-information-security-and-supply-chain-security"
+        },
+        {
+          "t": "Federal News Network",
+          "u": "https://federalnewsnetwork.com/acquisition-policy/2026/10/industry-legal-experts-urge-far-council-to-set-standards-for-ai-in-federal-procurement/"
+        }
+      ]
+    },
+    {
+      "id": "eo-14365",
+      "name": "E.O. 14365: National Policy Framework for AI (state-law preemption push)",
+      "jur": "US Federal",
+      "type": "Binding policy",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Federal campaign against state AI laws via a DOJ litigation task force; state procurement laws are reportedly carved out.",
+      "applies": "Federal agencies; indirectly, anyone relying on state AI law compliance.",
+      "summary": "Created a DOJ AI Litigation Task Force (operating since 10 Jan 2026) to challenge state AI laws. An executive order cannot itself preempt state law, so state laws stay enforceable unless a court blocks them or Congress acts. The order reportedly carves out state procurement laws, child safety and data-center permitting.",
+      "implications": [
+        "Keep complying with state AI laws until a court or Congress says otherwise",
+        "Use change-in-law clauses so contracts adjust if a state law is struck down or preempted"
+      ],
+      "dates": [
+        {
+          "d": "2025-12-11",
+          "t": "Signed"
+        },
+        {
+          "d": "2026-01-10",
+          "t": "DOJ AI Litigation Task Force begins work"
+        }
+      ],
+      "clauses": [
+        "compliance"
+      ],
+      "sources": [
+        {
+          "t": "Ropes & Gray: limits of the federal push",
+          "u": "https://www.ropesgray.com/en/insights/alerts/2026/03/examining-the-landscape-and-limitations-of-the-federal-push-to-override-state-ai-regulation"
+        },
+        {
+          "t": "State of AI: carve-outs",
+          "u": "https://www.stateof.ai/predictions/federal-vs-state-ai-regulation"
+        }
+      ]
+    },
+    {
+      "id": "five-eyes-agentic",
+      "name": "Careful Adoption of Agentic AI Services (CISA, NSA and Five Eyes partners)",
+      "jur": "US Federal",
+      "type": "Guidance",
+      "status": "guidance",
+      "agentic": true,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "The first joint government security guidance written specifically for agentic AI.",
+      "applies": "Developers, vendors and operators of agentic AI; aimed at government and critical infrastructure but widely applicable.",
+      "summary": "Co-authored by CISA, NSA and the cyber agencies of Australia, Canada, New Zealand and the UK. Names five risk categories (privilege, design and configuration, behavior, structural, accountability) and recommends more than 100 practices, including incremental adoption starting with low-risk tasks. Not binding, but likely to shape procurement security requirements.",
+      "implications": [
+        "Require a verifiable identity per agent and least-privilege, short-lived credentials",
+        "Human approval checkpoints for high-impact actions",
+        "Independent monitoring that cross-checks agent reports against system logs",
+        "Vet third-party tools and data sources the agent can reach"
+      ],
+      "dates": [
+        {
+          "d": "2026-05-01",
+          "t": "Published"
+        }
+      ],
+      "clauses": [
+        "agent-identity",
+        "agent-limits",
+        "oversight",
+        "logging",
+        "supply-chain",
+        "security"
+      ],
+      "sources": [
+        {
+          "t": "CISA announcement",
+          "u": "https://content.govdelivery.com/accounts/USDHSCISA/bulletins/41544ff"
+        },
+        {
+          "t": "Mayer Brown summary",
+          "u": "https://www.mayerbrown.com/en/insights/publications/2026/06/multi-agency-guidance-on-securing-agentic-ai-systems"
+        }
+      ]
+    },
+    {
+      "id": "nist-caisi-agents",
+      "name": "NIST CAISI AI Agent Standards Initiative and NCCoE agent identity project",
+      "jur": "US Federal",
+      "type": "Standard",
+      "status": "proposed",
+      "agentic": true,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "US standards work on agent security, interoperability, identity and authorization; overlays still in development.",
+      "applies": "Voluntary; expected to inform federal requirements and vendor attestations.",
+      "summary": "NIST's Center for AI Standards and Innovation launched the initiative on 17 Feb 2026. The NCCoE published a concept paper on software and AI agent identity and authorization. SP 800-53 control overlays for single- and multi-agent systems (COSAiS) were still in development as of early 2026.",
+      "implications": [
+        "Ask vendors how they will map to forthcoming NIST agent overlays",
+        "Use agent identity and authorization concepts in contract security schedules"
+      ],
+      "dates": [
+        {
+          "d": "2026-02-05",
+          "t": "NCCoE agent identity concept paper"
+        },
+        {
+          "d": "2026-02-17",
+          "t": "AI Agent Standards Initiative launched"
+        }
+      ],
+      "clauses": [
+        "agent-identity",
+        "security"
+      ],
+      "sources": [
+        {
+          "t": "Cloud Security Alliance research note",
+          "u": "https://labs.cloudsecurityalliance.org/research/csa-research-note-nist-ai-agent-standards-federal-framework/"
+        }
+      ]
+    },
+    {
+      "id": "nist-ai-rmf",
+      "name": "NIST AI Risk Management Framework and Generative AI Profile (AI 600-1)",
+      "jur": "International standards",
+      "type": "Standard",
+      "status": "guidance",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "The common vocabulary for AI risk that many contracts and questionnaires reference.",
+      "applies": "Voluntary for any organization.",
+      "summary": "Organizes AI risk management into Govern, Map, Measure and Manage functions. The Generative AI Profile adds risks and actions specific to generative systems. Often used as the reference point for vendor governance attestations.",
+      "implications": [
+        "Ask vendors to map their controls to the AI RMF functions",
+        "Use the GenAI Profile risks as a checklist in evaluations"
+      ],
+      "dates": [
+        {
+          "d": "2023-01-26",
+          "t": "AI RMF 1.0 released"
+        },
+        {
+          "d": "2024-07-26",
+          "t": "Generative AI Profile released"
+        }
+      ],
+      "clauses": [
+        "security",
+        "testing",
+        "audit"
+      ],
+      "sources": [
+        {
+          "t": "NIST AI RMF",
+          "u": "https://www.nist.gov/itl/ai-risk-management-framework"
+        }
+      ]
+    },
+    {
+      "id": "co-sb26-189",
+      "name": "Colorado SB 26-189 (replaces the Colorado AI Act, SB 24-205)",
+      "jur": "US State",
+      "type": "Binding law",
+      "status": "phased",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "A narrower automated decision-making law takes over from Colorado's 2024 AI Act, starting 1 Jan 2027.",
+      "applies": "Developers and deployers of automated decision-making technology used for consequential decisions in areas such as employment, housing, credit, insurance, health care and education.",
+      "summary": "Signed 14 May 2026. Drops the 2024 law's high-risk framework and duty of care in favor of transparency obligations and consumer rights. Enforced by the Attorney General as a deceptive trade practice, with notice and a 60-day cure period where cure is possible. Enforcement of the old law was stayed after a federal suit.",
+      "implications": [
+        "Get vendor documentation that supports consumer notices for consequential decisions",
+        "Contract for help with consumer requests and AG inquiries",
+        "Re-baseline any compliance work done for the 2024 Act"
+      ],
+      "dates": [
+        {
+          "d": "2026-05-14",
+          "t": "Signed; repeals SB 24-205 before it took effect"
+        },
+        {
+          "d": "2027-01-01",
+          "t": "Applies to consequential decisions made on or after this date"
+        }
+      ],
+      "clauses": [
+        "docs",
+        "assessment",
+        "disclosure",
+        "compliance"
+      ],
+      "sources": [
+        {
+          "t": "Skadden",
+          "u": "https://www.skadden.com/insights/publications/2026/06/colorado-repeals-and-replaces-its-ai-act"
+        },
+        {
+          "t": "Ropes & Gray",
+          "u": "https://www.ropesgray.com/en/insights/alerts/2026/05/colorado-scales-back-ai-law-with-targeted-implications-for-health-care"
+        }
+      ]
+    },
+    {
+      "id": "ca-admt",
+      "name": "California CCPA regulations on ADMT, risk assessments and cybersecurity audits",
+      "jur": "US State",
+      "type": "Regulation",
+      "status": "phased",
+      "agentic": false,
+      "buyers": [
+        "private"
+      ],
+      "short": "Notice, opt-out and access duties for automated decision-making, plus mandatory privacy risk assessments.",
+      "applies": "CCPA-covered businesses using ADMT for significant decisions (including employment) about California consumers; their service providers.",
+      "summary": "Regulations took effect 1 Jan 2026, when risk-assessment duties for new processing began. ADMT obligations for significant decisions apply from 1 Jan 2027, with risk-assessment attestations and cybersecurity audits phased in later by business size.",
+      "implications": [
+        "Vendors must supply information for pre-use notices and risk assessments",
+        "Support opt-out and access requests about ADMT logic and outcomes",
+        "Service-provider terms should require cooperation with assessments"
+      ],
+      "dates": [
+        {
+          "d": "2026-01-01",
+          "t": "Regulations effective; risk assessments for new processing"
+        },
+        {
+          "d": "2027-01-01",
+          "t": "ADMT compliance deadline for significant decisions"
+        }
+      ],
+      "clauses": [
+        "assessment",
+        "docs",
+        "data-use",
+        "audit"
+      ],
+      "sources": [
+        {
+          "t": "Lowenstein Sandler",
+          "u": "https://www.lowenstein.com/news-insights/publications/client-alerts/automated-decision-making-under-the-microscope-cppa-finalizes-new-ccpa-rules-data-privacy"
+        },
+        {
+          "t": "Thompson Coburn key dates",
+          "u": "https://www.jdsupra.com/legalnews/california-s-2026-ccpa-regulations-7815698/"
+        }
+      ]
+    },
+    {
+      "id": "ca-sb53",
+      "name": "California SB 53: Transparency in Frontier AI Act",
+      "jur": "US State",
+      "type": "Binding law",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "private",
+        "public"
+      ],
+      "short": "Frontier model developers must publish safety frameworks and report critical safety incidents.",
+      "applies": "Developers of frontier models (trained with more than 10^26 operations); extra duties for large frontier developers.",
+      "summary": "Effective 1 Jan 2026. Requires published frontier AI frameworks, transparency reports and critical-incident reporting, with whistleblower protections. Buyers are not regulated directly, but the disclosures are useful due-diligence evidence.",
+      "implications": [
+        "Ask foundation-model vendors for their published framework and incident history",
+        "Include notice of critical safety incidents that affect your deployment"
+      ],
+      "dates": [
+        {
+          "d": "2026-01-01",
+          "t": "Effective"
+        }
+      ],
+      "clauses": [
+        "docs",
+        "incident"
+      ],
+      "sources": [
+        {
+          "t": "Simpson Thacher update",
+          "u": "https://www.stblaw.com/about-us/publications/view/2025/10/21/california-privacy-cybersecurity-and-ai-update"
+        }
+      ]
+    },
+    {
+      "id": "ca-sb942",
+      "name": "California AI Transparency Act (SB 942, as amended by AB 853)",
+      "jur": "US State",
+      "type": "Binding law",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "private"
+      ],
+      "short": "Large generative AI providers must embed disclosures in generated content and offer a detection tool.",
+      "applies": "Covered generative AI providers serving California users; later phases reach platforms and capture devices.",
+      "summary": "AB 853 moved the operative date to 2 Aug 2026 to align with the EU AI Act's original timetable. Requires latent (machine-readable) disclosures in AI-generated content and a free detection tool.",
+      "implications": [
+        "Confirm content-generation vendors embed provenance data",
+        "Keep labels intact in downstream workflows"
+      ],
+      "dates": [
+        {
+          "d": "2026-08-02",
+          "t": "Operative date (per AB 853)"
+        }
+      ],
+      "clauses": [
+        "disclosure"
+      ],
+      "sources": [
+        {
+          "t": "SecurePrivacy overview",
+          "u": "https://secureprivacy.ai/blog/california-ai-transparency-law"
+        }
+      ]
+    },
+    {
+      "id": "tx-traiga",
+      "name": "Texas Responsible AI Governance Act (TRAIGA, HB 149)",
+      "jur": "US State",
+      "type": "Binding law",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Government agencies must disclose AI interactions; certain government AI uses are banned outright.",
+      "applies": "Texas governmental entities (with limited exceptions) and anyone developing or deploying AI in Texas.",
+      "summary": "In force since 1 Jan 2026. Targets intentional misuse rather than high-risk categories. Agencies must clearly disclose when consumers interact with AI, and may not use AI for social scoring or certain biometric identification without consent. Enforced by the Attorney General, with a cure period and a regulatory sandbox.",
+      "implications": [
+        "Vendors to Texas agencies must support AI-interaction disclosures",
+        "Warranty that the system is not designed for prohibited uses"
+      ],
+      "dates": [
+        {
+          "d": "2026-01-01",
+          "t": "Effective"
+        },
+        {
+          "d": "2026-09-01",
+          "t": "AG online complaint mechanism due"
+        }
+      ],
+      "clauses": [
+        "disclosure",
+        "compliance"
+      ],
+      "sources": [
+        {
+          "t": "Norton Rose Fulbright",
+          "u": "https://www.nortonrosefulbright.com/en-us/knowledge/publications/c6c60e0c/the-texas-responsible-ai-governance-act"
+        },
+        {
+          "t": "CASRAI explainer",
+          "u": "https://casrai.org/guides/texas-traiga-explained"
+        }
+      ]
+    },
+    {
+      "id": "il-hb3773",
+      "name": "Illinois HB 3773: AI in employment decisions",
+      "jur": "US State",
+      "type": "Binding law",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Notice to workers when AI is used, and no AI that has a discriminatory effect or uses ZIP codes as a proxy.",
+      "applies": "Employers with Illinois employees using AI in recruitment, hiring, promotion, discipline, discharge and similar decisions.",
+      "summary": "Amends the Illinois Human Rights Act, effective 1 Jan 2026. Does not require a bias audit or impact assessment, but liability turns on discriminatory effect, so evidence of testing matters.",
+      "implications": [
+        "Require HR-tech vendors to confirm no ZIP-code proxies",
+        "Get bias-testing evidence to support a defense",
+        "Vendor support for employee notices"
+      ],
+      "dates": [
+        {
+          "d": "2026-01-01",
+          "t": "Effective"
+        }
+      ],
+      "clauses": [
+        "testing",
+        "disclosure",
+        "assessment"
+      ],
+      "sources": [
+        {
+          "t": "SecurePrivacy Illinois guide",
+          "u": "https://secureprivacy.ai/blog/illinois-ai-law-2026-guide"
+        }
+      ]
+    },
+    {
+      "id": "nyc-ll144",
+      "name": "NYC Local Law 144: Automated employment decision tools",
+      "jur": "US State",
+      "type": "Binding law",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "private",
+        "public"
+      ],
+      "short": "Annual independent bias audits and candidate notices for hiring and promotion tools.",
+      "applies": "Employers and employment agencies using AEDTs for candidates or employees in New York City.",
+      "summary": "Requires a bias audit within one year before use, public posting of audit results, and advance notice to candidates. Enforcement has been criticized as weak, but the audit duty is a standard contract ask for HR-tech vendors.",
+      "implications": [
+        "Contract for vendor data and cooperation for the annual bias audit",
+        "Right to receive and publish the audit summary"
+      ],
+      "dates": [
+        {
+          "d": "2023-07-05",
+          "t": "Enforcement began"
+        }
+      ],
+      "clauses": [
+        "testing",
+        "audit",
+        "disclosure"
+      ],
+      "sources": [
+        {
+          "t": "NYC DCWP: AEDT",
+          "u": "https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page"
+        }
+      ]
+    },
+    {
+      "id": "ny-raise",
+      "name": "New York RAISE Act (as amended)",
+      "jur": "US State",
+      "type": "Binding law",
+      "status": "phased",
+      "agentic": false,
+      "buyers": [
+        "private",
+        "public"
+      ],
+      "short": "Frontier developer framework and disclosure duties, aligned closely with California SB 53.",
+      "applies": "Large frontier model developers.",
+      "summary": "Signed Dec 2025 and rewritten by a chapter amendment signed 27 Mar 2026. Requires a frontier AI framework and disclosures; fines up to $1M, then $3M. Developers are being directed to register ahead of the January 2027 start.",
+      "implications": [
+        "Due-diligence evidence when buying from frontier developers",
+        "Incident notice expectations similar to SB 53"
+      ],
+      "dates": [
+        {
+          "d": "2026-03-27",
+          "t": "Chapter amendment signed"
+        },
+        {
+          "d": "2027-01-01",
+          "t": "Effective"
+        }
+      ],
+      "clauses": [
+        "docs",
+        "incident"
+      ],
+      "sources": [
+        {
+          "t": "RAISE Act explainer",
+          "u": "https://www.vaquill.ai/blog/new-york-raise-act-explained"
+        },
+        {
+          "t": "KPMG: CA, NY and IL frontier laws",
+          "u": "https://kpmg.com/kpmg-us/content/dam/kpmg/pdf/2026/state-ai-safety-laws-ca-ny-and-il-reg-alert.pdf"
+        }
+      ]
+    },
+    {
+      "id": "eu-ai-act",
+      "name": "EU AI Act (Reg. 2024/1689), as amended by the AI Omnibus (Reg. 2026/1744)",
+      "jur": "European Union",
+      "type": "Binding law",
+      "status": "phased",
+      "agentic": true,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Risk-based AI law; high-risk duties now start Dec 2027 (stand-alone) and Aug 2028 (embedded in products).",
+      "applies": "Providers, deployers, importers and distributors of AI systems placed on or used in the EU market, including non-EU vendors.",
+      "summary": "Prohibited practices have applied since Feb 2025 and general-purpose AI model duties since Aug 2025. The AI Omnibus entered into force 27 Jul 2026, deferring Annex III high-risk obligations to 2 Dec 2027 and Annex I product-embedded systems to 2 Aug 2028. Most transparency obligations stayed on track; certain machine-readable marking duties for AI-generated content move to 2 Dec 2026. Agentic systems are regulated through the same risk categories.",
+      "implications": [
+        "Fix each party's role (provider vs deployer) in the contract",
+        "High-risk buys: conformity documentation, instructions for use, logs, human oversight, post-market monitoring cooperation",
+        "Downstream documentation from general-purpose model providers",
+        "Deployers keep logs and run fundamental-rights impact assessments where required"
+      ],
+      "dates": [
+        {
+          "d": "2025-02-02",
+          "t": "Prohibitions and AI literacy provisions apply"
+        },
+        {
+          "d": "2025-08-02",
+          "t": "General-purpose AI model obligations apply"
+        },
+        {
+          "d": "2026-07-27",
+          "t": "AI Omnibus enters into force"
+        },
+        {
+          "d": "2026-08-02",
+          "t": "Most transparency obligations apply"
+        },
+        {
+          "d": "2026-12-02",
+          "t": "Machine-readable marking of AI-generated content (per Omnibus)"
+        },
+        {
+          "d": "2027-12-02",
+          "t": "Annex III stand-alone high-risk obligations apply"
+        },
+        {
+          "d": "2028-08-02",
+          "t": "Annex I product-embedded high-risk obligations apply"
+        }
+      ],
+      "clauses": [
+        "compliance",
+        "docs",
+        "logging",
+        "oversight",
+        "incident",
+        "disclosure",
+        "assessment",
+        "testing"
+      ],
+      "sources": [
+        {
+          "t": "AI Act (EUR-Lex)",
+          "u": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj"
+        },
+        {
+          "t": "K&L Gates: AI Omnibus enters into force",
+          "u": "https://www.mondaq.com/eu-digital-omnibus-on-ai-enters-into-force/1825722"
+        },
+        {
+          "t": "Proskauer on marking deadline",
+          "u": "https://www.proskauer.com/pub/eu-ai-act-update-provisional-deal-would-delay-high-risk-ai-rules"
+        }
+      ]
+    },
+    {
+      "id": "eu-mcc-ai",
+      "name": "EU Model Contractual Clauses for AI procurement (MCC-AI)",
+      "jur": "European Union",
+      "type": "Model clauses",
+      "status": "guidance",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Non-binding high-risk and 'light' clause sets aligned to the AI Act, from the EU public buyers community.",
+      "applies": "Public buyers in the EU; widely used as a reference by private buyers.",
+      "summary": "Updated 5 Mar 2025 with a full version for high-risk AI, a light version for non-high-risk AI, and a commentary. They track AI Act requirements (risk management, data governance, documentation, transparency, human oversight, accuracy and security) and leave out IP, liability, payment and governing law, which buyers must add.",
+      "implications": [
+        "Use as the AI schedule alongside your own commercial terms",
+        "Add IP, liability and exit terms the MCC-AI omit"
+      ],
+      "dates": [
+        {
+          "d": "2023-09-29",
+          "t": "First version"
+        },
+        {
+          "d": "2025-03-05",
+          "t": "Updated version aligned to the AI Act"
+        }
+      ],
+      "clauses": [
+        "docs",
+        "data-use",
+        "oversight",
+        "logging",
+        "testing",
+        "security",
+        "compliance"
+      ],
+      "sources": [
+        {
+          "t": "Public Buyers Community: updated MCC-AI",
+          "u": "https://public-buyers-community.ec.europa.eu/communities/procurement-ai/resources/updated-eu-ai-model-contractual-clauses"
+        },
+        {
+          "t": "Slaughter and May commentary",
+          "u": "https://thelens.slaughterandmay.com/post/102kbhf/commission-updates-model-contractual-clauses-for-ai-procurement"
+        }
+      ]
+    },
+    {
+      "id": "eu-data-act",
+      "name": "EU Data Act (Reg. 2023/2854)",
+      "jur": "European Union",
+      "type": "Binding law",
+      "status": "phased",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Cloud and data-processing switching rights, plus limits on unfair data terms; switching charges end Jan 2027.",
+      "applies": "Providers of data processing services (including cloud-hosted AI) and B2B data-sharing contracts.",
+      "summary": "Applies from 12 Sep 2025. Customers gain the right to switch providers, with transition and portability support, and switching charges must be removed from 12 Jan 2027. Unfair unilateral data-sharing terms imposed on another business are not binding.",
+      "implications": [
+        "Switching and portability terms for cloud-delivered AI",
+        "Plan for removal of switching charges in 2027 renewals"
+      ],
+      "dates": [
+        {
+          "d": "2025-09-12",
+          "t": "Applies"
+        },
+        {
+          "d": "2027-01-12",
+          "t": "Switching charges must be removed"
+        }
+      ],
+      "clauses": [
+        "exit",
+        "data-use"
+      ],
+      "sources": [
+        {
+          "t": "Data Act (EUR-Lex)",
+          "u": "https://eur-lex.europa.eu/eli/reg/2023/2854/oj"
+        }
+      ]
+    },
+    {
+      "id": "eu-pld",
+      "name": "EU Product Liability Directive (2024/2853)",
+      "jur": "European Union",
+      "type": "Binding law",
+      "status": "phased",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Software, including AI, becomes a 'product' for strict liability; national laws due Dec 2026.",
+      "applies": "Manufacturers and others in the supply chain of products, now including software and AI systems.",
+      "summary": "Member states must transpose by 9 Dec 2026. Software and AI systems are covered, defects can arise from updates or lack of them, and courts get disclosure and presumption tools that ease claimants' burden.",
+      "implications": [
+        "Revisit liability allocation, indemnities and caps for AI components",
+        "Update and patch obligations matter for liability"
+      ],
+      "dates": [
+        {
+          "d": "2026-12-09",
+          "t": "Transposition deadline"
+        }
+      ],
+      "clauses": [
+        "remedies",
+        "change-notice",
+        "compliance"
+      ],
+      "sources": [
+        {
+          "t": "Directive (EUR-Lex)",
+          "u": "https://eur-lex.europa.eu/eli/dir/2024/2853/oj"
+        }
+      ]
+    },
+    {
+      "id": "eu-dora",
+      "name": "EU Digital Operational Resilience Act (DORA)",
+      "jur": "European Union",
+      "type": "Binding law",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "private"
+      ],
+      "short": "Mandatory contract terms for ICT services, including AI services, bought by financial entities.",
+      "applies": "EU financial entities and their ICT third-party providers.",
+      "summary": "Applies from 17 Jan 2025. Article 30 lists required contract terms: service descriptions, data location, access and audit, incident assistance, termination rights and exit strategies, with more for critical or important functions.",
+      "implications": [
+        "Treat AI vendors as ICT third parties subject to Article 30 terms",
+        "Exit plans for AI supporting critical functions"
+      ],
+      "dates": [
+        {
+          "d": "2025-01-17",
+          "t": "Applies"
+        }
+      ],
+      "clauses": [
+        "audit",
+        "exit",
+        "incident",
+        "supply-chain"
+      ],
+      "sources": [
+        {
+          "t": "DORA (EUR-Lex)",
+          "u": "https://eur-lex.europa.eu/eli/reg/2022/2554/oj"
+        }
+      ]
+    },
+    {
+      "id": "eu-gdpr",
+      "name": "GDPR Articles 22, 28 and 35",
+      "jur": "European Union",
+      "type": "Binding law",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Processor terms, impact assessments and rights around solely automated decisions.",
+      "applies": "Anyone processing personal data of people in the EU.",
+      "summary": "Article 28 requires processor contracts; Article 35 requires data protection impact assessments for high-risk processing; Article 22 limits solely automated decisions with legal or similarly significant effects and requires safeguards such as human intervention.",
+      "implications": [
+        "Data processing agreement covering AI processing and subprocessors",
+        "Vendor input to DPIAs",
+        "Human review path for automated decisions"
+      ],
+      "dates": [
+        {
+          "d": "2018-05-25",
+          "t": "Applies"
+        }
+      ],
+      "clauses": [
+        "data-use",
+        "supply-chain",
+        "assessment",
+        "oversight"
+      ],
+      "sources": [
+        {
+          "t": "GDPR (EUR-Lex)",
+          "u": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
+        }
+      ]
+    },
+    {
+      "id": "uk-ppn-017",
+      "name": "UK PPN 017: Improving transparency of AI use in procurement",
+      "jur": "United Kingdom",
+      "type": "Guidance",
+      "status": "guidance",
+      "agentic": false,
+      "buyers": [
+        "public"
+      ],
+      "short": "Guidance on suppliers' use of AI in bids and how buyers can ask about it, under the Procurement Act 2023.",
+      "applies": "Contracting authorities in scope of the Procurement Act 2023 (procurements commenced on or after 24 Feb 2025).",
+      "summary": "Helps buyers manage suppliers' use of AI tools when preparing tenders, including asking for disclosure, and points to wider UK guidance on using and buying AI. The Procurement Act itself has no AI-specific provisions, so it is read with guidance such as the 2020 Guidelines for AI procurement and the AI Playbook.",
+      "implications": [
+        "Add a supplier AI-use disclosure question to tenders",
+        "Check AI-generated bid content for accuracy"
+      ],
+      "dates": [
+        {
+          "d": "2025-02-24",
+          "t": "Procurement Act 2023 regime applies"
+        }
+      ],
+      "clauses": [
+        "disclosure",
+        "docs"
+      ],
+      "sources": [
+        {
+          "t": "GOV.UK: PPN 017",
+          "u": "https://www.gov.uk/government/publications/ppn-017-improving-transparency-of-ai-use-in-procurement/ppn-017-improving-transparency-of-ai-use-in-procurement-html"
+        },
+        {
+          "t": "GOV.UK: Guidelines for AI procurement",
+          "u": "https://www.gov.uk/government/publications/guidelines-for-ai-procurement/guidelines-for-ai-procurement"
+        }
+      ]
+    },
+    {
+      "id": "uk-ppn-025",
+      "name": "UK PPN 025: National security and resilience in AI and other key sectors",
+      "jur": "United Kingdom",
+      "type": "Guidance",
+      "status": "guidance",
+      "agentic": false,
+      "buyers": [
+        "public"
+      ],
+      "short": "Lets buyers weigh national security in AI procurements, up to using the Procurement Act's national security exemption.",
+      "applies": "UK contracting authorities buying in AI, shipbuilding, energy infrastructure and steel.",
+      "summary": "Published 19 Jun 2026. Sets a sliding scale: some AI procurements may justify restricting competition to UK-based suppliers without dropping competition altogether. Follows a March 2026 directive treating AI as critical to national security.",
+      "implications": [
+        "Expect supplier origin and control questions in UK AI tenders",
+        "Supply-chain transparency for model and hosting providers"
+      ],
+      "dates": [
+        {
+          "d": "2026-06-19",
+          "t": "Published"
+        }
+      ],
+      "clauses": [
+        "supply-chain",
+        "security"
+      ],
+      "sources": [
+        {
+          "t": "Tussell: PPN 025 explained",
+          "u": "https://www.tussell.com/gov/blog/ppn-025-explained-how-public-sector-ai-energy-defence-procurement-is-changing"
+        },
+        {
+          "t": "Bevan Brittan",
+          "u": "https://www.bevanbrittan.com/insights/articles/2026/procuring-with-strategic-intent-and-a-focus-on-national-security/"
+        }
+      ]
+    },
+    {
+      "id": "ca-dadm",
+      "name": "Canada Directive on Automated Decision-Making",
+      "jur": "Canada",
+      "type": "Binding policy",
+      "status": "force",
+      "agentic": true,
+      "buyers": [
+        "public"
+      ],
+      "short": "Mandatory impact assessment, transparency, quality and human-intervention rules for federal automated decisions.",
+      "applies": "Most federal departments using automated decision systems, including procured ones, for administrative decisions.",
+      "summary": "Updated 24 Jun 2025, with existing systems required to comply by 24 Jun 2026. Requires an Algorithmic Impact Assessment, notice, explanation, testing, monitoring and human intervention scaled to impact level. Canada's agentic AI guide tells departments to check whether the directive applies to agentic uses.",
+      "implications": [
+        "Vendor support for the Algorithmic Impact Assessment and peer review",
+        "Access to components, testing data and documentation needed for explanations",
+        "Human-in-the-loop design for higher impact levels"
+      ],
+      "dates": [
+        {
+          "d": "2025-06-24",
+          "t": "Updated directive takes effect"
+        },
+        {
+          "d": "2026-06-24",
+          "t": "Compliance deadline for existing systems"
+        }
+      ],
+      "clauses": [
+        "assessment",
+        "docs",
+        "testing",
+        "oversight",
+        "audit"
+      ],
+      "sources": [
+        {
+          "t": "TBS: Directive on Automated Decision-Making",
+          "u": "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32592"
+        },
+        {
+          "t": "Gowling WLG",
+          "u": "https://www.mondaq.com/artificial-intelligence-in-public-decision-making-guidelines-jurisprudence-and-open-questions/1841968"
+        }
+      ]
+    },
+    {
+      "id": "ca-agentic",
+      "name": "Canada Guide on the Use of Agentic Artificial Intelligence",
+      "jur": "Canada",
+      "type": "Guidance",
+      "status": "guidance",
+      "agentic": true,
+      "buyers": [
+        "public"
+      ],
+      "short": "Federal guidance for AI systems that take actions, extending the generative AI guide.",
+      "applies": "Government of Canada institutions.",
+      "summary": "Published 18 May 2026. Distinguishes agentic from generative AI, requires checking whether the Directive on Automated Decision-Making applies, and stresses training and acting only within existing authorities.",
+      "implications": [
+        "Define what authority an agent acts under",
+        "Training and oversight for staff supervising agents"
+      ],
+      "dates": [
+        {
+          "d": "2026-05-18",
+          "t": "Published"
+        }
+      ],
+      "clauses": [
+        "agent-limits",
+        "oversight",
+        "agent-identity"
+      ],
+      "sources": [
+        {
+          "t": "Canada.ca: Guide on the Use of Agentic AI",
+          "u": "https://www.canada.ca/en/government/system/digital-government/digital-government-innovations/responsible-use-ai/guide-use-agentic-artificial-antelligence.html"
+        }
+      ]
+    },
+    {
+      "id": "sg-agentic",
+      "name": "Singapore Model AI Governance Framework for Agentic AI",
+      "jur": "Asia-Pacific",
+      "type": "Guidance",
+      "status": "guidance",
+      "agentic": true,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Described as the first government governance framework built specifically for agentic AI; v1.5 added real deployments.",
+      "applies": "Voluntary; organizations developing or deploying AI agents.",
+      "summary": "Released by IMDA on 22 Jan 2026 and organized around four dimensions. Version 1.5 (May 2026) drew on feedback from more than 60 organizations. Points to GovTech's Agentic Risk and Capability Framework for sample controls and to AI Verify testing tools.",
+      "implications": [
+        "Use its dimensions to structure agentic due-diligence questions",
+        "Plan for staff skill retention as agents take over entry-level tasks"
+      ],
+      "dates": [
+        {
+          "d": "2026-01-22",
+          "t": "Released"
+        },
+        {
+          "d": "2026-05",
+          "t": "Version 1.5 released"
+        }
+      ],
+      "clauses": [
+        "agent-limits",
+        "agent-identity",
+        "oversight",
+        "testing"
+      ],
+      "sources": [
+        {
+          "t": "Mayer Brown",
+          "u": "https://www.jdsupra.com/legalnews/singapore-s-agentic-ai-framework-9572076/"
+        },
+        {
+          "t": "Apolitical case study",
+          "u": "https://apolitical.co/en/navigator/case-studies/singapore-s-governance-framework-for-agentic-ai-the-first-guide-for-ai-systems-that-act-on-their-own"
+        }
+      ]
+    },
+    {
+      "id": "cn-agents",
+      "name": "China Implementation Opinions on AI Agents (CAC, NDRC, MIIT)",
+      "jur": "Asia-Pacific",
+      "type": "Binding policy",
+      "status": "force",
+      "agentic": true,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "China's first national framework treating AI agents as their own category, with tiered oversight.",
+      "applies": "Developers and operators of AI agents in China.",
+      "summary": "Issued 8 May 2026. Defines agents as systems capable of autonomous perception, memory, decision-making, interaction and execution, and sets tiered governance by scenario and risk. Analysts report it became enforceable 15 Jul 2026 and describe filing expectations with sector regulators.",
+      "implications": [
+        "Vendors operating agents in China may face filing and tiered-autonomy limits",
+        "Relevant to multinational buyers deploying agents there"
+      ],
+      "dates": [
+        {
+          "d": "2026-05-08",
+          "t": "Issued"
+        },
+        {
+          "d": "2026-07-15",
+          "t": "Reported enforceable"
+        }
+      ],
+      "clauses": [
+        "agent-limits",
+        "oversight",
+        "compliance"
+      ],
+      "sources": [
+        {
+          "t": "NYU Shanghai RITS",
+          "u": "https://rits.shanghai.nyu.edu/ai/china-issues-first-national-policy-framework-dedicated-to-ai-agents"
+        },
+        {
+          "t": "China Briefing",
+          "u": "https://china-briefing.com/news/china-ai-regulation-2026-new-laws-rules"
+        }
+      ]
+    },
+    {
+      "id": "kr-ai-basic",
+      "name": "South Korea AI Basic Act and Enforcement Decree",
+      "jur": "Asia-Pacific",
+      "type": "Binding law",
+      "status": "phased",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "In force since Jan 2026; administrative fines deferred until Jan 2027.",
+      "applies": "AI developers and deployers offering high-impact, generative or high-performance AI in Korea, including foreign firms (domestic representative required in some cases).",
+      "summary": "High-impact AI operators must assess whether a system is high-impact, run risk management and human oversight, and make efforts to assess impacts on fundamental rights. Generative AI outputs need labeling. Government agencies are to give priority to products that have had impact assessments. MSIT set a grace period of at least a year before fines.",
+      "implications": [
+        "Ask vendors for a high-impact determination and any impact assessment",
+        "Labeling of generative outputs",
+        "Domestic representative arrangements for foreign vendors"
+      ],
+      "dates": [
+        {
+          "d": "2026-01-22",
+          "t": "Act and Enforcement Decree take effect"
+        },
+        {
+          "d": "2027-01-22",
+          "t": "Grace period on fines expected to end"
+        }
+      ],
+      "clauses": [
+        "assessment",
+        "disclosure",
+        "oversight",
+        "compliance"
+      ],
+      "sources": [
+        {
+          "t": "Cooley overview",
+          "u": "https://www.cooley.com/news/insight/2026/2026-01-27-south-koreas-ai-basic-act-overview-and-key-takeaways"
+        },
+        {
+          "t": "Shin & Kim",
+          "u": "https://www.shinkim.com/eng/media/newsletter/3117?page=4"
+        }
+      ]
+    },
+    {
+      "id": "jp-ds920",
+      "name": "Japan DS-920: Guideline on Procurement and Use of Generative AI in Government (v2.0)",
+      "jur": "Asia-Pacific",
+      "type": "Binding policy",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "public"
+      ],
+      "short": "Sets the conditions for selling generative AI to Japanese national government bodies.",
+      "applies": "Japanese national government ministries and agencies, and their generative AI suppliers.",
+      "summary": "Version 2.0 was adopted 12 Jun 2026 and took effect 1 Sep 2026. It sits under the AI Promotion Act, which has no penalties, so procurement specifications are the main channel for binding requirements. The Digital Agency runs an AI consultation desk for risk assessment.",
+      "implications": [
+        "Expect requirements in specifications rather than statute",
+        "Risk assessment support for agencies"
+      ],
+      "dates": [
+        {
+          "d": "2025-05-27",
+          "t": "First version"
+        },
+        {
+          "d": "2026-06-12",
+          "t": "Version 2.0 adopted"
+        },
+        {
+          "d": "2026-09-01",
+          "t": "Version 2.0 in force"
+        }
+      ],
+      "clauses": [
+        "data-use",
+        "docs",
+        "security",
+        "testing"
+      ],
+      "sources": [
+        {
+          "t": "Digital Agency announcement",
+          "u": "https://www.digital.go.jp/en/news/decb64eb-f26e-41cb-8d37-f3dd173108b8"
+        },
+        {
+          "t": "Digital Policy Alert",
+          "u": "https://digitalpolicyalert.org/event/40638-guidelines-for-procurement-and-utilisation-of-generative-ai-for-evolution-and-innovation-of-government-administration-enters-into-force"
+        }
+      ]
+    },
+    {
+      "id": "au-policy",
+      "name": "Australia Policy for Responsible Use of AI in Government v2.0, AI procurement guidance and DTA model clauses",
+      "jur": "Asia-Pacific",
+      "type": "Binding policy",
+      "status": "force",
+      "agentic": false,
+      "buyers": [
+        "public"
+      ],
+      "short": "Mandatory impact assessments and accountable officials, backed by procurement guidance and model clauses.",
+      "applies": "Non-corporate Commonwealth entities (with some defence and intelligence exceptions).",
+      "summary": "Version 2.0 took effect 15 Dec 2025 with an AI Impact Assessment Tool, guidance on AI procurement and a procurement checklist. The DTA's AI model clauses (Mar 2025) cover bespoke AI systems and software with integrated AI, including human oversight requirements and limits on specified products.",
+      "implications": [
+        "Use DTA model clauses as the base AI schedule",
+        "Supplier transparency and reporting to support impact assessments"
+      ],
+      "dates": [
+        {
+          "d": "2025-03-17",
+          "t": "DTA AI model clauses published"
+        },
+        {
+          "d": "2025-12-15",
+          "t": "Policy v2.0 effective"
+        }
+      ],
+      "clauses": [
+        "assessment",
+        "oversight",
+        "docs",
+        "data-use",
+        "ip-outputs"
+      ],
+      "sources": [
+        {
+          "t": "digital.gov.au: Policy v2.0",
+          "u": "https://www.digital.gov.au/ai/ai-in-government-policy"
+        },
+        {
+          "t": "AGS legal update on model clauses",
+          "u": "https://www.ags.gov.au/sites/default/files/Legal-update-no327.pdf"
+        }
+      ]
+    },
+    {
+      "id": "ieee-3119",
+      "name": "IEEE 3119-2025: Standard for the Procurement of AI and Automated Decision Systems",
+      "jur": "International standards",
+      "type": "Standard",
+      "status": "guidance",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "The procurement-specific standard: a process for defining problems, evaluating vendors and managing AI risk across the buying lifecycle.",
+      "applies": "Voluntary; written for public-sector buyers and usable by any organization.",
+      "summary": "Gives buyers a structured, risk-based procurement process for AI and automated decision systems, complementing general management-system and risk frameworks.",
+      "implications": [
+        "Use as the process backbone that ties the clauses here to solicitation and evaluation steps"
+      ],
+      "dates": [],
+      "clauses": [
+        "compliance",
+        "testing",
+        "audit",
+        "docs"
+      ],
+      "sources": [
+        {
+          "t": "IEEE Standards Association",
+          "u": "https://standards.ieee.org/"
+        }
+      ]
+    },
+    {
+      "id": "iso-42001",
+      "name": "ISO/IEC 42001:2023 AI management system",
+      "jur": "International standards",
+      "type": "Standard",
+      "status": "guidance",
+      "agentic": false,
+      "buyers": [
+        "public",
+        "private"
+      ],
+      "short": "Certifiable AI management system standard often requested as vendor assurance.",
+      "applies": "Voluntary; any organization that develops, provides or uses AI.",
+      "summary": "Specifies requirements for establishing and improving an AI management system, including third-party and supplier considerations. Certification is a common shortcut in vendor evaluation, though scope should be checked.",
+      "implications": [
+        "Ask for certification scope, not just the certificate",
+        "Map remaining gaps to contract clauses"
+      ],
+      "dates": [
+        {
+          "d": "2023-12-18",
+          "t": "Published"
+        }
+      ],
+      "clauses": [
+        "audit",
+        "security"
+      ],
+      "sources": [
+        {
+          "t": "ISO",
+          "u": "https://www.iso.org/standard/81230.html"
+        }
+      ]
+    }
+  ]
+}
