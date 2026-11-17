@@ -324,7 +324,7 @@ function renderClauses(){
       <h3>${esc(c.name)}</h3>
       <p class="purpose">${esc(c.purpose)}</p>
       <div class="cgrid">
-        <div><h4 class="eyebrow" style="margin:0 0 6px">The clause should</h4><ul style="margin:0;padding-left:18px">${c.require.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
+        <div><h4 class="eyebrow" style="margin:0 0 6px">The clause should include</h4><ul style="margin:0;padding-left:18px">${c.require.map(x => `<li>${esc(x)}</li>`).join("")}</ul>
           <h4 class="eyebrow" style="margin:12px 0 6px">Driven by</h4><div class="drivers">${d.map(r => `<a href="#rule-${r.id}" data-rule="${r.id}">${esc(r.name.split(":")[0])}</a>`).join("")}</div></div>
         <div style="display:grid;gap:8px;align-content:start"><h4 class="eyebrow" style="margin:0">Starter language</h4><div class="starter" id="st-${c.id}">${esc(c.starter)}</div><button class="copy" type="button" data-copy="${c.id}">Copy starter language</button></div>
       </div>
